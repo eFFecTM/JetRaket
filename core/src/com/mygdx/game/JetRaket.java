@@ -10,12 +10,6 @@ import com.mygdx.game.States.MenuState;
 
 public class JetRaket extends ApplicationAdapter {
 	public static final int WIDTH = 480;
-
-	@Override
-	public void dispose() {
-		music.dispose();
-	}
-
 	public static final int HEIGHT = 800;
 	public static final float SCALE = 0.5f;
 	public static final String TITLE = "Flappy Bird";
@@ -41,6 +35,10 @@ public class JetRaket extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
+	}
 
+	@Override
+	public void dispose() {
+		music.dispose();
 	}
 }
