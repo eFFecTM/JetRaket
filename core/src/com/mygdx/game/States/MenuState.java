@@ -1,8 +1,12 @@
 package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
 /**
@@ -12,13 +16,21 @@ import com.mygdx.game.JetRaket;
 public class MenuState extends State{
     Texture background;
     Texture playBtn;
-
+    FreeTypeFontGenerator generator;
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    BitmapFont font12;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, JetRaket.WIDTH/2, JetRaket.HEIGHT/2);
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/goodtimes.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 25;
+        parameter.color = Color.RED;
+
+
     }
 
     @Override
@@ -39,6 +51,8 @@ public class MenuState extends State{
         sb.begin();
         sb.draw(background, 0, 0);
         sb.draw(playBtn, cam.position.x - playBtn.getWidth()/2, cam.position.y);
+        font12 = generator.generateFont(parameter); // font size 12 pixels
+        font12.draw(sb, "JetRaket", -cam.position.x, cam.position.y+100, JetRaket.WIDTH, Align.center, false);
         sb.end();
     }
 
@@ -46,6 +60,7 @@ public class MenuState extends State{
     public void dispose() {
         background.dispose();
         playBtn.dispose();
+        generator.dispose(); // don't forget to dispose to avoid memory leaks!
         System.out.println("Menu state disposed");
     }
 }
