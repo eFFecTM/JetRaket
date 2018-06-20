@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Thomas on 28/03/2018.
  */
 
-public class Bird {
+public class Rocket {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT = 100;
     private Vector3 position;
@@ -22,7 +22,7 @@ public class Bird {
     private Sound flap;
     public boolean colliding;
 
-    public Bird(int x, int y) {
+    public Rocket(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("birdanimation.png");
@@ -34,17 +34,20 @@ public class Bird {
 
     public void update(float dt){
         birdAnimation.update(dt);
-        velocity.add(0, GRAVITY, 0);
+        velocity.add(0, 0, 0);
         velocity.scl(dt);
-        if(!colliding)
-            position.add(MOVEMENT *dt, velocity.y, 0);
-        if(position.y < 82)
-            position.y = 82;
+        //if(!colliding)
+            position.add(0, 0, 0);
+        position.add(velocity.x *dt, -velocity.y *dt, 0);
+//        if(position.y < 82)
+//            position.y = 82;
         velocity.scl(1/dt);
         bounds.setPosition(position.x, position.y);
     }
 
-
+    public void setPosition(Vector3 position) {
+        this.position = position;
+    }
 
     public Vector3 getPosition() {
         return position;
@@ -57,6 +60,11 @@ public class Bird {
     public void jump(){
         velocity.y = 250;
         flap.play(0.5f);
+    }
+
+    public void move(float x, float y){
+        velocity.x=x;
+        velocity.y=y;
     }
 
     public Rectangle getBounds(){

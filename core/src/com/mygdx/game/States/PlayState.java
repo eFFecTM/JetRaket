@@ -1,13 +1,15 @@
 package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.JetRaket;
-import com.mygdx.game.sprites.Bird;
+import com.mygdx.game.sprites.Rocket;
 import com.mygdx.game.sprites.Tube;
 
 /**
@@ -19,7 +21,7 @@ public class PlayState extends State {
     private static final int TUBE_COUNT = 4;
     private static final int GROUND_Y_OFFSET = -30;
 
-    private Bird bird;
+    private Rocket rocket;
     private Texture bg;
     private Texture ground;
     private Texture gameoverImg;
@@ -27,10 +29,11 @@ public class PlayState extends State {
     private Array<Tube> tubes;
     private ShapeRenderer sr;
     private boolean gameover;
+    private Vector2 movementReference;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        bird = new Bird(40,200);
+        rocket = new Rocket(40,200);
         cam.setToOrtho(false, JetRaket.WIDTH/2, JetRaket.HEIGHT/2);
         bg = new Texture("bg.png");
         ground = new Texture("ground.png");
@@ -42,6 +45,29 @@ public class PlayState extends State {
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean touchDown (int x, int y, int pointer, int button) {
+                movementReference = new Vector2(x,y);
+                return true; // return true to indicate the event was handled
+            }
+
+            @Override
+            public boolean touchUp (int x, int y, int pointer, int button) {
+                rocket.move(0,0);
+                return true; // return true to indicate the event was handled
+            }
+
+            @Override
+            public boolean touchDragged (int x, int y, int pointer) {
+                float diffX = x - movementReference.x;
+                float diffY = y - movementReference.y;
+
+                rocket.move(diffX*25,diffY*25);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -50,29 +76,30 @@ public class PlayState extends State {
             if(gameover)
                 gsm.set(new PlayState(gsm));
             else
-                bird.jump();
+                rocket.jump();
     }
 
     @Override
     public void update(float dt) {
         handleInput();
         updateGround();
-        bird.update(dt);
-        cam.position.x = bird.getPosition().x + 80;
+        rocket.update(dt);
+        //cam.position.x = rocket.getPosition().x + 80;
+        cam.position.x = rocket.getPosition().x;
 
         for(int i=0; i <tubes.size; i++){
             Tube tube = tubes.get(i);
             if(cam.position.x - (cam.viewportWidth/2) > tube.getPosToptube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPosBotTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
-            if(tube.collides(bird.getBounds())) {
-                bird.colliding = true;
-                gameover = true;
+            if(tube.collides(rocket.getBounds())) {
+                rocket.colliding = true;
+                gameover = false;
             }
         }
-        if(bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
-            bird.colliding = true;
-            gameover = true;
+        if(rocket.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
+            rocket.colliding = true;
+            gameover = false;
         }
         cam.update();
     }
@@ -82,7 +109,7 @@ public class PlayState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
-        sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
+        sb.draw(rocket.getTexture(), rocket.getPosition().x, rocket.getPosition().y);
         for(Tube tube : tubes) {
             sb.draw(tube.getTopTube(), tube.getPosToptube().x, tube.getPosToptube().y);
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
@@ -97,7 +124,7 @@ public class PlayState extends State {
     @Override
     public void dispose() {
         bg.dispose();
-        bird.dispose();
+        rocket.dispose();
         ground.dispose();
         gameoverImg.dispose();
         for(Tube tube : tubes){

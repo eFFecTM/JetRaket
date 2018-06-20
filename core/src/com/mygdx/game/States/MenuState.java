@@ -61,6 +61,7 @@ public class MenuState extends State{
         background.dispose();
         playBtn.dispose();
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
+        font12.dispose();
         System.out.println("Menu state disposed");
     }
 }
