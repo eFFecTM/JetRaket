@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.JetRaket;
 import com.mygdx.game.sprites.Rocket;
 import com.mygdx.game.sprites.Tube;
@@ -35,7 +39,7 @@ public class PlayState extends State {
         super(gsm);
         rocket = new Rocket(40,200);
         cam.setToOrtho(false, JetRaket.WIDTH/2, JetRaket.HEIGHT/2);
-        bg = new Texture("bg.png");
+        bg = new Texture("background.jpg");
         ground = new Texture("ground.png");
         gameoverImg = new Texture("gameover.png");
         gameover = false;
@@ -45,38 +49,46 @@ public class PlayState extends State {
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
+        movementReference = new Vector2(0,0);
 
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean touchDown (int x, int y, int pointer, int button) {
-                movementReference = new Vector2(x,y);
-                return true; // return true to indicate the event was handled
-            }
-
-            @Override
-            public boolean touchUp (int x, int y, int pointer, int button) {
-                rocket.move(0,0);
-                return true; // return true to indicate the event was handled
-            }
-
-            @Override
-            public boolean touchDragged (int x, int y, int pointer) {
-                float diffX = x - movementReference.x;
-                float diffY = y - movementReference.y;
-
-                rocket.move(diffX*25,diffY*25);
-                return false;
-            }
-        });
+//        Gdx.input.setInputProcessor(new InputAdapter() {
+//            @Override
+//            public boolean touchDown (int x, int y, int pointer, int button) {
+//                if (y < JetRaket.HEIGHT) {
+//                    movementReference.set(x,y);
+//                }
+//                else {
+//                    rocket.shoot();
+//                }
+//                return true; // return true to indicate the event was handled
+//            }
+//
+//            @Override
+//            public boolean touchUp (int x, int y, int pointer, int button) {
+//
+//                return true; // return true to indicate the event was handled
+//            }
+//
+//            @Override
+//            public boolean touchDragged (int x, int y, int pointer) {
+//                if (y < JetRaket.HEIGHT) {
+//                    float diffX = x - movementReference.x;
+//                    float diffY = y - movementReference.y;
+//
+//                    rocket.move(diffX * 25, diffY * 25);
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override
     protected void handleInput() {
-        if(Gdx.input.justTouched())
-            if(gameover)
-                gsm.set(new PlayState(gsm));
-            else
-                rocket.jump();
+        rocket.move(JetRaket.touchpad.getKnobPercentX()*10000,JetRaket.touchpad.getKnobPercentY()*10000);
+        System.out.println(JetRaket.touchpad.getKnobPercentX() + " - " + JetRaket.touchpad.getKnobPercentY());
+                //        if(Gdx.input.justTouched())
+//            if(gameover)
+//                gsm.set(new PlayState(gsm));
     }
 
     @Override
@@ -109,7 +121,9 @@ public class PlayState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
-        sb.draw(rocket.getTexture(), rocket.getPosition().x, rocket.getPosition().y);
+        //sb.draw(rocket.getTexture(), rocket.getPosition().x, rocket.getPosition().y);
+        rocket.sprite.scale(0.001f);
+        rocket.sprite.draw(sb);
         for(Tube tube : tubes) {
             sb.draw(tube.getTopTube(), tube.getPosToptube().x, tube.getPosToptube().y);
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
