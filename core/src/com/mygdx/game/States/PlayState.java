@@ -13,8 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.JetRaket;
+import com.mygdx.game.sprites.Meteor;
 import com.mygdx.game.sprites.Rocket;
-import com.mygdx.game.sprites.Tube;
+import com.mygdx.game.sprites.Meteor;
 
 /**
  * Created by Thomas on 14/03/2018.
@@ -30,7 +31,7 @@ public class PlayState extends State {
     private Texture ground;
     private Texture gameoverImg;
     private Vector2 groundPos1, groundPos2;
-    private Array<Tube> tubes;
+    private Array<Meteor> meteors;
     private ShapeRenderer sr;
     private boolean gameover;
     private Vector2 movementReference;
@@ -45,9 +46,9 @@ public class PlayState extends State {
         gameover = false;
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
-        tubes = new Array<Tube>();
+        meteors = new Array<Meteor>();
         for (int i = 1; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
+            meteors.add(new Meteor(i * (TUBE_SPACING + Meteor.METEOR_WIDTH)));
         }
         movementReference = new Vector2(0,0);
 
@@ -99,12 +100,12 @@ public class PlayState extends State {
         //cam.position.x = rocket.getPosition().x + 80;
         cam.position.x = rocket.getPosition().x;
 
-        for(int i=0; i <tubes.size; i++){
-            Tube tube = tubes.get(i);
-            if(cam.position.x - (cam.viewportWidth/2) > tube.getPosToptube().x + tube.getTopTube().getWidth()) {
-                tube.reposition(tube.getPosBotTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+        for(int i=0; i <meteors.size; i++){
+            Meteor meteor = meteors.get(i);
+            if(cam.position.x - (cam.viewportWidth/2) > meteor.getPosMeteor().x + meteor.getMeteor().getWidth()) {
+                meteor.reposition(meteor.getPosMeteor().x + ((Meteor.METEOR_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
-            if(tube.collides(rocket.getBounds())) {
+            if(meteor.collides(rocket.getBounds())) {
                 rocket.colliding = true;
                 gameover = false;
             }
@@ -124,9 +125,9 @@ public class PlayState extends State {
         //sb.draw(rocket.getTexture(), rocket.getPosition().x, rocket.getPosition().y);
         rocket.sprite.scale(0.001f);
         rocket.sprite.draw(sb);
-        for(Tube tube : tubes) {
-            sb.draw(tube.getTopTube(), tube.getPosToptube().x, tube.getPosToptube().y);
-            sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+        for(Meteor meteor : meteors) {
+            sb.draw(meteor.getMeteor(), meteor.getPosMeteor().x, meteor.getPosMeteor().y);
+            //sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
         }
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
@@ -141,8 +142,8 @@ public class PlayState extends State {
         rocket.dispose();
         ground.dispose();
         gameoverImg.dispose();
-        for(Tube tube : tubes){
-            tube.dispose();
+        for(Meteor meteor : meteors){
+            meteor.dispose();
         }
         System.out.println("Play state disposed");
     }
