@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
     public GameScreen(final JetRaket game) {
         this.game = game;
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, game.WIDTH, game.HEIGHT);
+        cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
 
         rocket = new Rocket(40,200);
         bg = new Texture("background.jpg");

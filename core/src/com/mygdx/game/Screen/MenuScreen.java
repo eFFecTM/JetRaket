@@ -18,7 +18,7 @@ public class MenuScreen implements Screen {
     public MenuScreen(final JetRaket game) {
         this.game = game;
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, game.WIDTH, game.HEIGHT);
+        cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
         playBtn = new Texture("playbtn.png");
     }
 
@@ -34,7 +34,7 @@ public class MenuScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(playBtn,cam.position.x - playBtn.getWidth()/2, cam.position.y);
-        game.font.draw(game.batch,"JetRaket",-cam.position.x ,cam.position.y+100,game.WIDTH, Align.center, false);
+        game.font.draw(game.batch,"JetRaket", 0 ,cam.position.y+100,game.WIDTH, Align.center, false);
         game.batch.end();
         handleInput();
     }

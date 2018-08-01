@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.Screen.MenuScreen;
 
 public class JetRaket extends Game {
-	public final int WIDTH = 480;
-	public final int HEIGHT = 800;
+	public static final int WIDTH = 480;
+	public static final int HEIGHT = 800;
 	public final String TITLE = "JetRaket";
 
 	public SpriteBatch batch;
