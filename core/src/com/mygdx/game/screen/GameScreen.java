@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
 		stage = new Stage(new ScreenViewport());
 		stage.addActor(touchpad);
 		Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
@@ -68,9 +69,12 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
+        rocket.update(delta);
+        rocket.sprite.draw(game.batch);
         game.batch.end();
         stage.draw();
         handleInput();
+        updateLogic();
     }
 
     @Override
@@ -102,12 +106,16 @@ public class GameScreen implements Screen {
     }
 
     private void handleInput() {
-//        rocket.move(JetRaket.touchpad.getKnobPercentX()*10000,JetRaket.touchpad.getKnobPercentY()*10000);
-//        System.out.println(JetRaket.touchpad.getKnobPercentX() + " - " + JetRaket.touchpad.getKnobPercentY());
+        rocket.move(touchpad.getKnobPercentX()*10000,touchpad.getKnobPercentY()*10000);
+        System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
 
-        if(Gdx.input.justTouched()) {
-            game.setScreen(new MenuScreen(game));
-            dispose();
-        }
+//        if(Gdx.input.justTouched()) {
+//            game.setScreen(new MenuScreen(game));
+//            dispose();
+//        }
+    }
+
+    private void updateLogic() {
+
     }
 }
