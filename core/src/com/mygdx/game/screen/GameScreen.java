@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.JetRaket;
+import com.mygdx.game.sprites.Meteor;
 import com.mygdx.game.sprites.Rocket;
 
 public class GameScreen implements Screen {
@@ -20,6 +21,7 @@ public class GameScreen implements Screen {
     private Stage stage;
 
     private Rocket rocket;
+    private Meteor meteor;
     private Texture bg;
     private Skin touchpadSkin;
     private Touchpad touchpad;
@@ -31,6 +33,7 @@ public class GameScreen implements Screen {
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
 
         rocket = new Rocket(40,200);
+        meteor = new Meteor();
         bg = new Texture("background.jpg");
 
         touchpadSkin = new Skin();
@@ -70,7 +73,9 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
         rocket.update(delta);
+        meteor.update(delta);
         rocket.sprite.draw(game.batch);
+        meteor.sprite.draw(game.batch);
         game.batch.end();
         stage.draw();
         handleInput();
@@ -100,6 +105,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         rocket.dispose();
+        meteor.dispose();
         bg.dispose();
         touchpadSkin.dispose();
         stage.dispose();
@@ -108,6 +114,8 @@ public class GameScreen implements Screen {
     private void handleInput() {
         rocket.move(touchpad.getKnobPercentX()*10000,touchpad.getKnobPercentY()*10000);
         System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
+        meteor.move(0, 10);
+        System.out.println("METEOR COORDINATES: " + meteor.sprite.getTexture().getHeight() + ", " + meteor.sprite.getTexture().getWidth());
 
 //        if(Gdx.input.justTouched()) {
 //            game.setScreen(new MenuScreen(game));

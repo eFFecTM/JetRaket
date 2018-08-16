@@ -13,12 +13,8 @@ import com.badlogic.gdx.math.Vector3;
  */
 
 public class Rocket {
-    private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velocity;
-    private Rectangle bounds;
-    private Animation birdAnimation;
     public Sprite sprite;
     private Sound shoot;
     public boolean colliding;
