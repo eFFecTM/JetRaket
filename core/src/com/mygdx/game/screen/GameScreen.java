@@ -47,10 +47,10 @@ public class GameScreen implements Screen {
 		touchpadStyle.background = touchBackground;
 		touchpadStyle.knob = touchKnob;
 		//Create new TouchPad with the created style
-		touchpad = new Touchpad(10, touchpadStyle);
+		touchpad = new Touchpad(0, touchpadStyle);
 		//setBounds(x,y,width,height)
         System.out.println(JetRaket.screenWidth);
-		touchpad.setBounds(0, 0, JetRaket.WIDTH/2*JetRaket.screenWidth/JetRaket.WIDTH,JetRaket.WIDTH/2*JetRaket.screenHeight/JetRaket.HEIGHT);
+		touchpad.setBounds(JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH, 0, JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH,JetRaket.WIDTH/3*JetRaket.screenHeight/JetRaket.HEIGHT);
 
 		stage = new Stage(new ScreenViewport());
 		stage.addActor(touchpad);
@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
         game.batch.end();
         stage.draw();
         handleInput();
-        updateLogic();
+//        updateLogic();
     }
 
     @Override
@@ -107,9 +107,9 @@ public class GameScreen implements Screen {
     }
 
     private void handleInput() {
-        rocket.move(touchpad.getKnobPercentX()*10000,-touchpad.getKnobPercentY()*10000);
+        rocket.move(touchpad.getKnobPercentX()*10,-touchpad.getKnobPercentY()*10);
         //System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
-        System.out.println(rocket.getPosition().x + " - " + rocket.getPosition().y);
+        //System.out.println(rocket.getPosition().x + " - " + rocket.getPosition().y);
 //        if(Gdx.input.justTouched()) {
 //            game.setScreen(new MenuScreen(game));
 //            dispose();
