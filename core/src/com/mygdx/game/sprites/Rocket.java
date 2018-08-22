@@ -70,8 +70,8 @@ public class Rocket {
     }
 
     public void move(float x, float y){
-        System.out.println(velocity.x + " - " + velocity.y);
-        int maxVel = 250;
+        //System.out.println(velocity.x + " - " + velocity.y);
+        int maxVel = 200;
         if(velocity.x > maxVel)
             velocity.x = maxVel;
         else if(velocity.x < -maxVel)

@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
 		//Create new TouchPad with the created style
 		touchpad = new Touchpad(0, touchpadStyle);
 		//setBounds(x,y,width,height)
-        System.out.println(JetRaket.screenWidth);
+        //System.out.println(JetRaket.screenWidth);
 		touchpad.setBounds(JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH, 0, JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH,JetRaket.WIDTH/3*JetRaket.screenHeight/JetRaket.HEIGHT);
 
 		stage = new Stage(new ScreenViewport());
