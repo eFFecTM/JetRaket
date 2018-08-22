@@ -35,8 +35,8 @@ public class Rocket {
         //birdAnimation.update(dt);
         velocity.add(1, 0, 0);
         velocity.scl(dt);
-        //if(!colliding)
-            position.add(0, 0, 0);
+//        if(!colliding)
+//            position.add(0, 0, 0);
         position.add(velocity.x *dt, velocity.y *dt, 0);
 //        if(position.y < 82)
 //            position.y = 82;

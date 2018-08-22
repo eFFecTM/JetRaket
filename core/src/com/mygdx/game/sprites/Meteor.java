@@ -25,11 +25,13 @@ public class Meteor {
     public Meteor(){
         rand = new Random();
         int x = rand.nextInt(JetRaket.WIDTH);
-        position = new Vector3(10,10,0);
+        position = new Vector3(x,100,0);
         velocity = new Vector3(0,0,0);
         Texture texture = new Texture("meteor.png");
         sprite = new Sprite(texture);
-        sprite.setPosition(10,10);
+        sprite.setOrigin(0,0);
+        sprite.rotate(-90);
+        sprite.setPosition(x,100);
         sprite.setScale(0.1f);
         //rand = new Random();
         //posMeteor = new Vector2(x, rand.nextInt(JetRaket.HEIGHT));
@@ -39,12 +41,13 @@ public class Meteor {
     public void update(float dt){
         velocity.add(1,0,0);
         velocity.scl(dt);
-        //if(!colliding)
-            position.add(0, 0, 0);
+//        if(!colliding)
+//            position.add(0, 0, 0);
         position.add(velocity.x *dt, velocity.y *dt, 0);
 //        if(position.y < 82)
 //            position.y = 82;
         velocity.scl(1/dt);
+        move(0,10);
         sprite.setPosition(position.x, position.y);
     }
 

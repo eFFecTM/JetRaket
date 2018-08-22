@@ -30,8 +30,7 @@ public class GameScreen implements Screen {
     public GameScreen(final JetRaket game) {
         this.game = game;
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
-
+        cam.setToOrtho(true, JetRaket.WIDTH, JetRaket.HEIGHT);
         rocket = new Rocket(40,200);
         meteor = new Meteor();
         bg = new Texture("background.jpg");
@@ -113,10 +112,7 @@ public class GameScreen implements Screen {
 
     private void handleInput() {
         rocket.move(touchpad.getKnobPercentX()*10000,touchpad.getKnobPercentY()*10000);
-        System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
-        meteor.move(0, 10);
-        System.out.println("METEOR COORDINATES: " + meteor.sprite.getTexture().getHeight() + ", " + meteor.sprite.getTexture().getWidth());
-
+        //System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
 //        if(Gdx.input.justTouched()) {
 //            game.setScreen(new MenuScreen(game));
 //            dispose();
