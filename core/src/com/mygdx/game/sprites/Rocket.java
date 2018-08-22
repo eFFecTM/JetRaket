@@ -28,7 +28,9 @@ public class Rocket {
         velocity = new Vector3(0, 0, 0);
         Texture texture = new Texture("rocket.png");
         sprite = new Sprite(texture);
+        sprite.setFlip(false,true);
         sprite.setPosition(x,y);
+        sprite.setOrigin(0,0);
         sprite.setScale(0.1f);
         //birdAnimation = new Animation(new TextureRegion(texture), 1, 0.5f);
         shoot = Gdx.audio.newSound(Gdx.files.internal("rocket.wav"));

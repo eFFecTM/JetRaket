@@ -12,6 +12,8 @@ import com.mygdx.game.screen.MenuScreen;
 public class JetRaket extends Game {
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 800;
+	public static int screenWidth;
+	public static int screenHeight;
 	public static final String TITLE = "JetRaket";
 
 	public SpriteBatch batch;
@@ -21,6 +23,8 @@ public class JetRaket extends Game {
 
 	@Override
 	public void create () {
+		screenWidth = Gdx.app.getGraphics().getWidth();
+		screenHeight = Gdx.app.getGraphics().getHeight();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/goodtimes.ttf"));
