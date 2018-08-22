@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.JetRaket;
 
 /**
  * Created by Thomas on 28/03/2018.
@@ -40,8 +41,17 @@ public class Rocket {
 //        if(!colliding)
 //            position.add(0, 0, 0);
         position.add(velocity.x *dt, velocity.y *dt, 0);
-//        if(position.y < 82)
-//            position.y = 82;
+
+        // BOUNDARY CHECK
+        if(position.x < 0)
+            position.x = 0;
+        else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX())
+            position.x = JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX();
+        if(position.y < 0)
+            position.y = 0;
+        if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY())
+            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();
+
         velocity.scl(1/dt);
         sprite.setPosition(position.x, position.y);
     }

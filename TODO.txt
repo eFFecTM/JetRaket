@@ -1,0 +1,12 @@
+JETRAKET TO DO
+------------------------------------------------
+* Boundary check (rocket, meteor))
+* Movable background
+* Collision detection
+* Dead -> go to menu screen
+
+* Shoot function
+* Level design:
+    - Bigger meteors
+    - More meteors
+    -

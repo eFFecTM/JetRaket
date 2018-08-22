@@ -19,7 +19,6 @@ public class GameScreen implements Screen {
     private final JetRaket game;
     private OrthographicCamera cam;
     private Stage stage;
-
     private Rocket rocket;
     private Meteor meteor;
     private Texture bg;
@@ -111,7 +110,7 @@ public class GameScreen implements Screen {
     }
 
     private void handleInput() {
-        rocket.move(touchpad.getKnobPercentX()*10000,touchpad.getKnobPercentY()*10000);
+        rocket.move(touchpad.getKnobPercentX()*10000,-touchpad.getKnobPercentY()*10000);
         //System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
 //        if(Gdx.input.justTouched()) {
 //            game.setScreen(new MenuScreen(game));
