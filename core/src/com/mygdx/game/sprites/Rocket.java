@@ -36,11 +36,9 @@ public class Rocket {
 
     public void update(float dt){
         //birdAnimation.update(dt);
-        velocity.add(1, 0, 0);
+        //velocity.add(1, 0, 0);
         velocity.scl(dt);
-//        if(!colliding)
-//            position.add(0, 0, 0);
-        position.add(velocity.x *dt, velocity.y *dt, 0);
+        position.add(velocity.x, velocity.y, 0);
 
         // BOUNDARY CHECK
         if(position.x < 0)
@@ -51,7 +49,6 @@ public class Rocket {
             position.y = 0;
         if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY())
             position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();
-
         velocity.scl(1/dt);
         sprite.setPosition(position.x, position.y);
     }
@@ -73,8 +70,21 @@ public class Rocket {
     }
 
     public void move(float x, float y){
-        velocity.x=x;
-        velocity.y=y;
+        System.out.println(velocity.x + " - " + velocity.y);
+        int maxVel = 250;
+        if(velocity.x > maxVel)
+            velocity.x = maxVel;
+        else if(velocity.x < -maxVel)
+            velocity.x = -maxVel;
+        else
+            velocity.x+=x;
+
+        if(velocity.y > maxVel)
+            velocity.y = maxVel;
+        else if(velocity.y < -maxVel)
+            velocity.y = -maxVel;
+        else
+            velocity.y+=y;
     }
 
     public Rectangle getBounds(){
