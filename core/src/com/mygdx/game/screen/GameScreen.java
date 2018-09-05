@@ -111,18 +111,11 @@ public class GameScreen implements Screen {
 
     private void handleInput() {
         rocket.move(touchpad.getKnobPercentX()*10,-touchpad.getKnobPercentY()*10);
-        //System.out.println(touchpad.getKnobPercentX() + " - " + touchpad.getKnobPercentY());
-        //System.out.println(rocket.getPosition().x + " - " + rocket.getPosition().y);
-//        if(Gdx.input.justTouched()) {
-//            game.setScreen(new MenuScreen(game));
-//            dispose();
-//        }
     }
 
     private void updateLogic() {
         if(rocket.getBounds().overlaps(meteor.getBounds())) {
-            System.out.println("COLLISION DETECTED");
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new EndScreen(game));
         }
 
     }

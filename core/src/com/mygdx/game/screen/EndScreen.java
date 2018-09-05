@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
-public class MenuScreen implements Screen {
+public class EndScreen implements Screen{
     private final JetRaket game;
     private OrthographicCamera cam;
     private Texture bg;
-    private Texture playBtn;
+    private Texture backBtn;
 
-    public MenuScreen(final JetRaket game) {
+    public EndScreen(final JetRaket game){
         this.game = game;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
-        playBtn = new Texture("playbtn.png");
+        backBtn = new Texture("playbtn.png");
         bg = new Texture("background.jpg");
     }
 
@@ -34,8 +34,8 @@ public class MenuScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
-        game.batch.draw(playBtn,cam.position.x - playBtn.getWidth()/2, cam.position.y);
-        game.font.draw(game.batch,"JetRaket", 0 ,cam.position.y+100, JetRaket.WIDTH, Align.center, false);
+        game.batch.draw(backBtn,cam.position.x - backBtn.getWidth()/2, cam.position.y);
+        game.font.draw(game.batch,"Game over!", 0 ,cam.position.y+100, JetRaket.WIDTH, Align.center, false);
         game.batch.end();
         handleInput();
     }
@@ -62,7 +62,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        playBtn.dispose();
+        backBtn.dispose();
     }
 
     private void handleInput() {
