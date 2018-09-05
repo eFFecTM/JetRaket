@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
         this.game = game;
         cam = new OrthographicCamera();
         cam.setToOrtho(true, JetRaket.WIDTH, JetRaket.HEIGHT);
-        rocket = new Rocket(0,0);
+        rocket = new Rocket();
         meteor = new Meteor();
         bg = new Texture("background.jpg");
 
@@ -50,7 +50,6 @@ public class GameScreen implements Screen {
 		//Create new TouchPad with the created style
 		touchpad = new Touchpad(0, touchpadStyle);
 		//setBounds(x,y,width,height)
-        System.out.println(JetRaket.screenWidth);
 		touchpad.setBounds(JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH, 0, JetRaket.WIDTH/3*JetRaket.screenWidth/JetRaket.WIDTH,JetRaket.WIDTH/3*JetRaket.screenHeight/JetRaket.HEIGHT);
 
 		stage = new Stage(new ScreenViewport());
@@ -121,6 +120,10 @@ public class GameScreen implements Screen {
     }
 
     private void updateLogic() {
+        if(rocket.getBounds().overlaps(meteor.getBounds())) {
+            System.out.println("COLLISION DETECTED");
+            game.setScreen(new MenuScreen(game));
+        }
 
     }
 }

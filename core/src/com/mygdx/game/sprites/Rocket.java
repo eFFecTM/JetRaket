@@ -20,10 +20,12 @@ public class Rocket {
     private Sound shoot;
     public boolean colliding;
 
-    public Rocket(int x, int y) {
+    public Rocket() {
+        Texture texture = new Texture("rocket.png");
+        int x = JetRaket.WIDTH/2 - texture.getWidth()/2/10;
+        int y = JetRaket.HEIGHT - 2*texture.getHeight()/10;
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        Texture texture = new Texture("rocket.png");
         sprite = new Sprite(texture);
         sprite.setFlip(false,true);
         sprite.setPosition(x,y);
@@ -70,7 +72,6 @@ public class Rocket {
     }
 
     public void move(float x, float y){
-        System.out.println(velocity.x + " - " + velocity.y);
         int maxVel = 250;
         if(velocity.x > maxVel)
             velocity.x = maxVel;

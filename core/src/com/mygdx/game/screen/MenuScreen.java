@@ -12,7 +12,7 @@ public class MenuScreen implements Screen {
 
     private final JetRaket game;
     private OrthographicCamera cam;
-
+    private Texture bg;
     private Texture playBtn;
 
     public MenuScreen(final JetRaket game) {
@@ -20,6 +20,7 @@ public class MenuScreen implements Screen {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
         playBtn = new Texture("playbtn.png");
+        bg = new Texture("background.jpg");
     }
 
     @Override
@@ -33,6 +34,7 @@ public class MenuScreen implements Screen {
         cam.update();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
+        game.batch.draw(bg, 0, 0);
         game.batch.draw(playBtn,cam.position.x - playBtn.getWidth()/2, cam.position.y);
         game.font.draw(game.batch,"JetRaket", 0 ,cam.position.y+100, JetRaket.WIDTH, Align.center, false);
         game.batch.end();

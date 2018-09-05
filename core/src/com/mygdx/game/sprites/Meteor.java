@@ -60,6 +60,10 @@ public class Meteor {
         velocity.y = y;
     }
 
+    public Rectangle getBounds(){
+        return sprite.getBoundingRectangle();
+    }
+
     public void dispose(){
         sprite.getTexture().dispose();
     }
