@@ -13,13 +13,17 @@ public class EndScreen implements Screen{
     private OrthographicCamera cam;
     private Texture bg;
     private Texture backBtn;
+    private int score;
+    private int highscore;
 
-    public EndScreen(final JetRaket game){
+    public EndScreen(final JetRaket game, int score){
         this.game = game;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
         backBtn = new Texture("playbtn.png");
         bg = new Texture("background.jpg");
+        this.score = score;
+        highscore = 0;
     }
 
     @Override
@@ -35,7 +39,8 @@ public class EndScreen implements Screen{
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
         game.batch.draw(backBtn,cam.position.x - backBtn.getWidth()/2, cam.position.y);
-        game.font.draw(game.batch,"Game over!", 0 ,cam.position.y+100, JetRaket.WIDTH, Align.center, false);
+        String string = "Game over!\n\nScore: " + score + "\n\nHighscore: " + highscore;
+        game.font.draw(game.batch, string, 0 ,cam.position.y+300, JetRaket.WIDTH, Align.center, false);
         game.batch.end();
         handleInput();
     }

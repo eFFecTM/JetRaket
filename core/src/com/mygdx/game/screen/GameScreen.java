@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.JetRaket;
 import com.mygdx.game.sprites.Meteor;
@@ -24,6 +26,8 @@ public class GameScreen implements Screen {
     private Texture bg;
     private Skin touchpadSkin;
     private Touchpad touchpad;
+    private int score;
+    private long startTime;
 
 
     public GameScreen(final JetRaket game) {
@@ -33,6 +37,8 @@ public class GameScreen implements Screen {
         rocket = new Rocket();
         meteor = new Meteor();
         bg = new Texture("background.jpg");
+        score = 0;
+        startTime = TimeUtils.millis();
 
         touchpadSkin = new Skin();
 		//Set background image
@@ -115,8 +121,18 @@ public class GameScreen implements Screen {
 
     private void updateLogic() {
         if(rocket.getBounds().overlaps(meteor.getBounds())) {
-            game.setScreen(new EndScreen(game));
+            game.setScreen(new EndScreen(game,score));
         }
+        if(TimeUtils.timeSinceMillis(startTime) > 1000){
+            score += 10;
+            startTime = TimeUtils.millis();
+        }
+//        timer.scheduleTask(new Timer.Task() {
+//            @Override
+//            public void run() {
+//                System.out.println("1 SECOND");
+//            }
+//        },0,5, 1);
 
     }
 }

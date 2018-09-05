@@ -1,9 +1,9 @@
 JETRAKET TO DO
 ------------------------------------------------
 * Boundary check (rocket, meteor))
-* Movable background
 * Collision detection
 * Dead -> go to end screen and show points
+* Movable background
 * Shoot function
 * Level design:
     - Bigger meteors
