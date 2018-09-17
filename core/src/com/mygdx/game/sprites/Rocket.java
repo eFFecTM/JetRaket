@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.JetRaket;
 
@@ -70,21 +71,24 @@ public class Rocket {
     }
 
     public void move(float x, float y){
-        //System.out.println(velocity.x + " - " + velocity.y);
-        int maxVel = 200;
-        if(velocity.x > maxVel)
-            velocity.x = maxVel;
-        else if(velocity.x < -maxVel)
-            velocity.x = -maxVel;
-        else
-            velocity.x+=x;
+        int maxVel = 250;
+        int step = 5;
 
-        if(velocity.y > maxVel)
-            velocity.y = maxVel;
-        else if(velocity.y < -maxVel)
-            velocity.y = -maxVel;
-        else
-            velocity.y+=y;
+        long distance = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+        double angle = Math.atan2(x,y);
+        double stepX = step * Math.sin(angle);
+        double stepY = step * Math.cos(angle);
+        long futVel = Math.round(Math.sqrt(Math.pow(velocity.x+stepX,2)+Math.pow(velocity.y+stepY,2)));
+
+        if(distance > 50 && futVel < maxVel) {
+            velocity.x += stepX;
+            velocity.y += stepY;
+        }
+
+        if(distance < 100) {
+            velocity.x /= 1.1;
+            velocity.y /= 1.1;
+        }
     }
 
     public Rectangle getBounds(){
