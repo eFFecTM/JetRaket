@@ -42,20 +42,30 @@ public class Rocket {
         position.add(velocity.x, velocity.y, 0);
 
         // BOUNDARY CHECK
-        if(position.x < 0)
+        if(position.x < 0) {
+            velocity.x = -velocity.x * 0.5f;
             position.x = 0;
-        else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX())
-            position.x = JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX();
-        if(position.y < 0)
-            position.y = 0;
-        if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY())
-            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();
+        }
+        else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX()) {
+            velocity.x = -velocity.x * 0.5f;
+            position.x = JetRaket.WIDTH - sprite.getWidth() * sprite.getScaleX();
+        }
+        if(position.y < 0){
+            velocity.y = -velocity.y*0.5f;
+            position.y = 0;}
+        else if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY()){
+            velocity.y = -velocity.y*0.5f;
+            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();}
         velocity.scl(1/dt);
         sprite.setPosition(position.x, position.y);
     }
 
     public void setPosition(Vector3 position) {
         this.position = position;
+    }
+
+    public void setPosition(float x, float y) {
+        this.position.set(x,y,0);
     }
 
     public Vector3 getPosition() {
@@ -72,7 +82,7 @@ public class Rocket {
 
     public void move(float x, float y){
         int maxVel = 250;
-        int step = 5;
+        int step = 8;
 
         long distance = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         double angle = Math.atan2(x,y);
@@ -85,7 +95,7 @@ public class Rocket {
             velocity.y += stepY;
         }
 
-        if(distance < 100) {
+        if(distance < 50) {
             velocity.x /= 1.1;
             velocity.y /= 1.1;
         }

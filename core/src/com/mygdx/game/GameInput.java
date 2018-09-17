@@ -38,35 +38,22 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        currPos.set((float) screenX/JetRaket.screenWidth*JetRaket.WIDTH, (float) screenY/JetRaket.screenHeight*JetRaket.HEIGHT);
-        game.knob.setPosition(refPos.x-game.knob.getWidth()/2,refPos.y-game.knob.getHeight()/2);
-        game.knob.setAlpha(1f);
-        if(screenX < JetRaket.screenWidth/2) {
-            //refPos.set((float) screenX/JetRaket.screenWidth*JetRaket.WIDTH, (float) screenY/JetRaket.screenHeight*JetRaket.HEIGHT);
-
-            isMoving = true;
-        }
-
+        //currPos.set((float) screenX/JetRaket.screenWidth*JetRaket.WIDTH, (float) screenY/JetRaket.screenHeight*JetRaket.HEIGHT);
+        //game.knob.setAlpha(1f);
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         game.knob.setAlpha(0f);
-        isMoving = false;
+        currPos.set(game.rocket.getPosition().x+game.rocket.sprite.getWidth()*game.rocket.sprite.getScaleX()/2, game.rocket.getPosition().y+game.rocket.sprite.getHeight()*game.rocket.sprite.getScaleY()/2);
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        //System.out.println(pointer);
         currPos.set((float) screenX/JetRaket.screenWidth*JetRaket.WIDTH, (float) screenY/JetRaket.screenHeight*JetRaket.HEIGHT);
-            //delta.set(currPos.x-refPos.x,currPos.y-refPos.y);
-            //System.out.println("delta " + delta.x + " - " + delta.y);
-            //System.out.println("touch dragged");
-
-
-            //System.out.println("ref " + refPos.x + " - " + refPos.y);
+        game.knob.setAlpha(1f);
         return true;
     }
 

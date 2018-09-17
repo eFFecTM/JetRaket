@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
         cam = new OrthographicCamera();
         cam.setToOrtho(true, JetRaket.WIDTH, JetRaket.HEIGHT);
         rocket = new Rocket(0,0);
+        rocket.setPosition(JetRaket.WIDTH/2 - rocket.sprite.getWidth()*rocket.sprite.getScaleX()/2,JetRaket.HEIGHT*3/4 - rocket.sprite.getHeight()*rocket.sprite.getScaleY()/2);
         meteor = new Meteor();
         bg = new Texture("background.jpg");
         knob = new Sprite(new Texture("touchKnob.png"));
