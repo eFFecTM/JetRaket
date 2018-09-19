@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
+import javax.xml.soap.Text;
+
 public class MenuScreen implements Screen {
     private final JetRaket game;
     private OrthographicCamera cam;
@@ -66,6 +68,7 @@ public class MenuScreen implements Screen {
     }
 
     private void handleInput() {
+
         if(Gdx.input.justTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();
