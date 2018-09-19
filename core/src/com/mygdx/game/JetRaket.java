@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.screen.MenuScreen;
 
+/**
+ * Created by Thomas Janssen & Jan De Laet
+ */
+
 public class JetRaket extends Game {
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 800;

@@ -10,7 +10,7 @@ import com.mygdx.game.JetRaket;
 import java.util.Random;
 
 /**
- * Created by Thomas on 28/03/2018.
+ * Created by Thomas Janssen & Jan De Laet
  */
 
 public class Meteor {
