@@ -84,7 +84,7 @@ public class Rocket {
 
     public void move(float x, float y){
         int maxVel = 250;
-        int step = 8;
+        int step = 10;
 
         long distance = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         double angle = Math.atan2(x,y);
@@ -92,15 +92,16 @@ public class Rocket {
         double stepY = step * Math.cos(angle);
         long futVel = Math.round(Math.sqrt(Math.pow(velocity.x+stepX,2)+Math.pow(velocity.y+stepY,2)));
 
-        if(distance > 50 && futVel < maxVel) {
+        if(distance > 25 && futVel < maxVel) {
             velocity.x += stepX;
             velocity.y += stepY;
         }
 
-        if(distance < 50) {
-            velocity.x /= 1.1;
-            velocity.y /= 1.1;
-        }
+        // slow down
+//        if(distance < 25) {
+//            velocity.x /= 1.1;
+//            velocity.y /= 1.1;
+//        }
     }
 
     public Rectangle getBounds(){
