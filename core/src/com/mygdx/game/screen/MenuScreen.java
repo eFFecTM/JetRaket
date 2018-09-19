@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
-import javax.xml.soap.Text;
+/**
+ * Created by Thomas Janssen & Jan De Laet
+ */
 
 public class MenuScreen implements Screen {
     private final JetRaket game;
@@ -68,7 +70,6 @@ public class MenuScreen implements Screen {
     }
 
     private void handleInput() {
-
         if(Gdx.input.justTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();

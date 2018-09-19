@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.JetRaket;
 
 /**
- * Created by Thomas on 28/03/2018.
+ * Created by Thomas Janssen & Jan De Laet
  */
 
 public class Rocket {
@@ -47,17 +45,17 @@ public class Rocket {
         if(position.x < 0) {
             velocity.x = -velocity.x * 0.5f;
             position.x = 0;
-        }
-        else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX()) {
+        } else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX()) {
             velocity.x = -velocity.x * 0.5f;
             position.x = JetRaket.WIDTH - sprite.getWidth() * sprite.getScaleX();
         }
-        if(position.y < 0){
+        if(position.y < 0) {
             velocity.y = -velocity.y*0.5f;
-            position.y = 0;}
-        else if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY()){
+            position.y = 0;
+        } else if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY()) {
             velocity.y = -velocity.y*0.5f;
-            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();}
+            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();
+        }
         velocity.scl(1/dt);
         sprite.setPosition(position.x, position.y);
     }
@@ -84,7 +82,7 @@ public class Rocket {
 
     public void move(float x, float y){
         int maxVel = 250;
-        int step = 8;
+        int step = 10;
 
         long distance = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
         double angle = Math.atan2(x,y);
@@ -92,12 +90,13 @@ public class Rocket {
         double stepY = step * Math.cos(angle);
         long futVel = Math.round(Math.sqrt(Math.pow(velocity.x+stepX,2)+Math.pow(velocity.y+stepY,2)));
 
-        if(distance > 50 && futVel < maxVel) {
+        if(distance > 25 && futVel < maxVel) {
             velocity.x += stepX;
             velocity.y += stepY;
         }
 
-        if(distance < 50) {
+        // slow down
+        if(distance < 25) {
             velocity.x /= 1.1;
             velocity.y /= 1.1;
         }
