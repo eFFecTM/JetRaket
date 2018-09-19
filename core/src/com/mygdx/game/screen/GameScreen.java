@@ -14,16 +14,20 @@ import com.mygdx.game.JetRaket;
 import com.mygdx.game.sprites.Meteor;
 import com.mygdx.game.sprites.Rocket;
 
+/**
+ * Created by Thomas Janssen & Jan De Laet
+ */
+
 public class GameScreen implements Screen {
 
     private final JetRaket game;
-    private OrthographicCamera cam;
+    public OrthographicCamera cam;
     public Rocket rocket;
     private Meteor meteor;
-    private Texture bg;
+    public Texture bg;
     private int score;
     private long startTime;
-    public Sprite knob;
+    public Sprite knob, buttonFire0, buttonFire1;
     private InputMultiplexer inputMultiplexer;
     public GameInput gameInput;
     private Vector2 out;
@@ -34,13 +38,27 @@ public class GameScreen implements Screen {
         cam = new OrthographicCamera();
         cam.setToOrtho(true, JetRaket.WIDTH, JetRaket.HEIGHT);
         rocket = new Rocket();
-         meteor = new Meteor();
+        meteor = new Meteor();
         bg = new Texture("background.jpg");
         score = 0;
         startTime = TimeUtils.millis();
         knob = new Sprite(new Texture("touchKnob.png"));
         knob.setFlip(false,true);
         knob.setAlpha(0f);
+
+        buttonFire0 = new Sprite(new Texture("buttonFire0.png"));
+        buttonFire0.setFlip(false,true);
+        buttonFire0.setOrigin(0,0);
+        buttonFire0.setScale(0.5f);
+        buttonFire0.setPosition(JetRaket.WIDTH - buttonFire0.getWidth()*buttonFire0.getScaleX(),JetRaket.HEIGHT/2 - buttonFire0.getHeight()*buttonFire0.getScaleY());
+
+        buttonFire1 = new Sprite(new Texture("buttonFire1.png"));
+        buttonFire1.setFlip(false,true);
+        buttonFire1.setOrigin(0,0);
+        buttonFire1.setScale(0.5f);
+        buttonFire1.setAlpha(0f);
+        buttonFire1.setPosition(JetRaket.WIDTH - buttonFire0.getWidth()*buttonFire0.getScaleX(),JetRaket.HEIGHT/2 - buttonFire0.getHeight()*buttonFire0.getScaleY());
+
         out = new Vector2(0,0);
 		inputMultiplexer = new InputMultiplexer();
         gameInput = new GameInput(this);
@@ -61,6 +79,8 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
         knob.draw(game.batch);
+        buttonFire0.draw(game.batch);
+        buttonFire1.draw(game.batch);
         rocket.update(delta);
         meteor.update(delta);
         rocket.sprite.draw(game.batch);

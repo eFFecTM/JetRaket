@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.JetRaket;
 
 /**
- * Created by Thomas on 28/03/2018.
+ * Created by Thomas Janssen & Jan De Laet
  */
 
 public class Rocket {
@@ -47,17 +45,17 @@ public class Rocket {
         if(position.x < 0) {
             velocity.x = -velocity.x * 0.5f;
             position.x = 0;
-        }
-        else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX()) {
+        } else if(position.x > JetRaket.WIDTH - sprite.getWidth()*sprite.getScaleX()) {
             velocity.x = -velocity.x * 0.5f;
             position.x = JetRaket.WIDTH - sprite.getWidth() * sprite.getScaleX();
         }
-        if(position.y < 0){
+        if(position.y < 0) {
             velocity.y = -velocity.y*0.5f;
-            position.y = 0;}
-        else if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY()){
+            position.y = 0;
+        } else if(position.y > JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY()) {
             velocity.y = -velocity.y*0.5f;
-            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();}
+            position.y = JetRaket.HEIGHT - sprite.getHeight()*sprite.getScaleY();
+        }
         velocity.scl(1/dt);
         sprite.setPosition(position.x, position.y);
     }
@@ -98,10 +96,10 @@ public class Rocket {
         }
 
         // slow down
-//        if(distance < 25) {
-//            velocity.x /= 1.1;
-//            velocity.y /= 1.1;
-//        }
+        if(distance < 25) {
+            velocity.x /= 1.1;
+            velocity.y /= 1.1;
+        }
     }
 
     public Rectangle getBounds(){

@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
+/**
+ * Created by Thomas Janssen & Jan De Laet
+ */
+
 public class EndScreen implements Screen{
     private final JetRaket game;
     private OrthographicCamera cam;
