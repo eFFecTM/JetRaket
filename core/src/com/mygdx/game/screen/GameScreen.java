@@ -102,20 +102,22 @@ public class GameScreen implements Screen {
         out.y = gameInput.currPos.y - (rocket.getPosition().y+rocket.sprite.getScaleY()*rocket.sprite.getHeight()/2);
         rocket.move(out.x, out.y);
         knob.setPosition(gameInput.currPos.x-knob.getWidth()/2,gameInput.currPos.y-knob.getHeight()/2);
+        detectCollision();
+        updateScore();
+    }
 
+    private void detectCollision(){
         if(rocket.getBounds().overlaps(meteor.getBounds())) {
             game.setScreen(new EndScreen(game,score));
         }
+
+
+    }
+
+    private void updateScore(){
         if(TimeUtils.timeSinceMillis(startTime) > 1000){
             score += 10;
             startTime = TimeUtils.millis();
         }
-//        timer.scheduleTask(new Timer.Task() {
-//            @Override
-//            public void run() {
-//                System.out.println("1 SECOND");
-//            }
-//        },0,5, 1);
-
     }
 }

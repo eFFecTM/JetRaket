@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,6 +16,7 @@ public class EndScreen implements Screen{
     private Texture backBtn;
     private int score;
     private int highscore;
+    private Preferences prefs;
 
     public EndScreen(final JetRaket game, int score){
         this.game = game;
@@ -22,8 +24,9 @@ public class EndScreen implements Screen{
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
         backBtn = new Texture("playbtn.png");
         bg = new Texture("background.jpg");
+        prefs = Gdx.app.getPreferences("game_preferences");
         this.score = score;
-        highscore = 0;
+        highscore = getHighscore();
     }
 
     @Override
@@ -39,10 +42,30 @@ public class EndScreen implements Screen{
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
         game.batch.draw(backBtn,cam.position.x - backBtn.getWidth()/2, cam.position.y);
-        String string = "Game over!\n\nScore: " + score + "\n\nHighscore: " + highscore;
+        checkHighscore();
+        String string = "Game over!\n\nScore: " + score + "\n\nHighscore: " + getHighscore();
         game.font.draw(game.batch, string, 0 ,cam.position.y+300, JetRaket.WIDTH, Align.center, false);
         game.batch.end();
+
         handleInput();
+    }
+
+    public void checkHighscore() {
+        if (!prefs.contains("highscore")) {
+            prefs.putInteger("highScore", 0);
+        }
+        if (score > getHighscore()) {
+            prefs.putInteger("highscore", score); //save the new high score
+            prefs.flush();
+        }
+    }
+
+    public int getHighscore(){
+        if (!prefs.contains("highscore")) {
+            prefs.putInteger("highScore", 0);
+        }
+        highscore = prefs.getInteger("highscore");
+        return highscore;
     }
 
     @Override
