@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.JetRaket;
 
+import java.util.ArrayList;
+
 /**
  * Created by Thomas Janssen & Jan De Laet
  */
@@ -18,21 +20,26 @@ public class Rocket {
     public Sprite sprite;
     private Sound shoot;
     public boolean colliding;
+    public ArrayList<Bullet> bullets;
+    public Texture textureBullet;
+    private float scale = 0.1f;
 
     public Rocket() {
         Texture texture = new Texture("rocket.png");
-        int x = JetRaket.WIDTH/2 - texture.getWidth()/2/10;
-        int y = JetRaket.HEIGHT - 2*texture.getHeight()/10;
+        textureBullet = new Texture("earth.png"); // load in once
+        int x = (int) (JetRaket.WIDTH/2 - texture.getWidth()/2*scale);
+        int y = (int) (JetRaket.HEIGHT - 2*texture.getHeight()*scale);
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         sprite = new Sprite(texture);
         sprite.setFlip(false,true);
         sprite.setPosition(x,y);
         sprite.setOrigin(0,0);
-        sprite.setScale(0.1f);
+        sprite.setScale(scale);
         //birdAnimation = new Animation(new TextureRegion(texture), 1, 0.5f);
         shoot = Gdx.audio.newSound(Gdx.files.internal("rocket.wav"));
         colliding = false;
+        bullets = new ArrayList<>();
     }
 
     public void update(float dt){
@@ -77,7 +84,11 @@ public class Rocket {
     }
 
     public void shoot(){
-        shoot.play(0.5f);
+        if(bullets.size() < 3) {
+            shoot.play(0.5f);
+            Bullet bullet = new Bullet(getPosition().x + sprite.getWidth() * scale / 2, getPosition().y, textureBullet);
+            bullets.add(bullet);
+        }
     }
 
     public void move(float x, float y){
@@ -109,5 +120,9 @@ public class Rocket {
     public void dispose(){
         sprite.getTexture().dispose();
         shoot.dispose();
+        for(Bullet bullet : bullets)
+        {
+            bullet.dispose();
+        }
     }
 }

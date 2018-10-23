@@ -11,8 +11,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.GameInput;
 import com.mygdx.game.JetRaket;
+import com.mygdx.game.sprites.Bullet;
 import com.mygdx.game.sprites.Meteor;
 import com.mygdx.game.sprites.Rocket;
+
+import java.util.Iterator;
 
 /**
  * Created by Thomas Janssen & Jan De Laet
@@ -85,6 +88,11 @@ public class GameScreen implements Screen {
         meteor.update(delta);
         rocket.sprite.draw(game.batch);
         meteor.sprite.draw(game.batch);
+        for(Bullet bullet : rocket.bullets)
+        {
+            bullet.update(delta);
+            bullet.sprite.draw(game.batch);
+        }
         game.batch.end();
         updateGame();
     }
@@ -131,6 +139,17 @@ public class GameScreen implements Screen {
             game.setScreen(new EndScreen(game,score));
         }
 
+        for(Iterator<Bullet> i = rocket.bullets.iterator(); i.hasNext();)
+        {
+            Bullet bullet = i.next();
+            if(meteor.getBounds().overlaps(bullet.getBounds()))
+            {
+                meteor.reset();
+                i.remove();
+            } else if(bullet.position.y < 0) {
+                i.remove();
+            }
+        }
 
     }
 

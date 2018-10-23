@@ -45,14 +45,19 @@ public class Meteor {
 //            position.add(0, 0, 0);
         position.add(velocity.x, velocity.y, 0);
         if(position.y > 800 + sprite.getHeight() + 10){
-            Random random = new Random();
-            position.x = random.nextInt(JetRaket.WIDTH);
-            position.y = 0;
+            reset();
         }
 
         velocity.scl(1/dt);
         move(0,200);
         sprite.setPosition(position.x, position.y);
+    }
+
+    public void reset()
+    {
+        Random random = new Random();
+        position.x = random.nextInt(JetRaket.WIDTH);
+        position.y = 0;
     }
 
     public void move(float x, float y){
