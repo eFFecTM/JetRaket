@@ -62,7 +62,6 @@ public class JetRaket extends Game {
 	}
 
 	public static Sprite convertTextureToSprite(Texture texture, Float scale){
-		System.out.println("converting...");
 		Sprite sprite = new Sprite(texture);
 		sprite.setFlip(false,true);
 		sprite.setOrigin(0,0);

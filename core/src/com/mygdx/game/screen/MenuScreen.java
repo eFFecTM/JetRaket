@@ -96,6 +96,7 @@ public class MenuScreen implements Screen {
             if(textureBounds_settings.contains(temp.x,temp.y))
             {
                 System.out.println("Settings");
+                game.setScreen(new SettingsScreen(game));
             }
             else if(textureBounds_playBtn.contains(press.x, press.y)){
                 System.out.println("Play");
