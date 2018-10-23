@@ -4,23 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.JetRaket;
 
 public class Bullet {
     public Vector3 position;
     private Vector3 velocity;
     public Sprite sprite;
-    private float scale;
+    private float scalebullet = 0.03f;
 
     public Bullet(float x, float y, Texture texture) {
-        scale = 0.03f;
-        sprite = new Sprite(texture);
-        sprite.setFlip(false,true);
-        sprite.setRotation(90);
+        scalebullet = 0.03f;
+        sprite = JetRaket.convertTextureToSprite(texture,scalebullet);
         sprite.setPosition(x,y);
-        sprite.setOrigin(0,0);
-        sprite.setScale(scale);
-        position = new Vector3(x+sprite.getWidth()*scale/2, y-sprite.getHeight()*scale, 0);
-        velocity = new Vector3(0, -100, 0);
+        position = new Vector3(x+sprite.getWidth()*scalebullet/2, y-sprite.getHeight()*scalebullet, 0);
+        velocity = new Vector3(0, -200, 0);
     }
 
     public void update(float dt) {
