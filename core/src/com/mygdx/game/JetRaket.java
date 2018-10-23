@@ -4,7 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.screen.MenuScreen;
@@ -57,5 +59,14 @@ public class JetRaket extends Game {
 		generator.dispose();
 		music.dispose();
 		screen.dispose();
+	}
+
+	public static Sprite convertTextureToSprite(Texture texture, Float scale){
+		Sprite sprite = new Sprite(texture);
+		sprite.setFlip(false,true);
+		sprite.setOrigin(0,0);
+		sprite.setScale(scale);
+
+		return sprite;
 	}
 }
