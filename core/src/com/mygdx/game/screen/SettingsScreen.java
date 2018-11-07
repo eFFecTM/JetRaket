@@ -83,7 +83,7 @@ public class SettingsScreen implements Screen {
             Vector3 temp = cam.unproject(press);
             Rectangle textureBounds_backBtn=new Rectangle(backBtn_sprite.getX(),backBtn_sprite.getY(),backBtn_sprite.getWidth(),backBtn_sprite.getHeight());
             if(textureBounds_backBtn.contains(temp.x, temp.y)){
-                System.out.println("Play");
+                System.out.println("Back to menu");
                 game.setScreen(new MenuScreen(game));
                 dispose();
             }

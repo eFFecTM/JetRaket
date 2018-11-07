@@ -30,9 +30,9 @@ public class MenuScreen implements Screen {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
 
-        playBtn = new Texture("playbtn.png");
-        playBtn_sprite = JetRaket.convertTextureToSprite(playBtn, 1f);
-        playBtn_sprite.setPosition(cam.position.x - playBtn_sprite.getWidth()/2, cam.position.y);
+        playBtn = new Texture("playBtn.png");
+        playBtn_sprite = JetRaket.convertTextureToSprite(playBtn, 1.5f);
+        playBtn_sprite.setPosition(cam.position.x - playBtn_sprite.getWidth()/2*playBtn_sprite.getScaleX(), cam.position.y);
 
         bg = new Texture("background.jpg");
         settings = new Texture("settings.png");
@@ -52,11 +52,11 @@ public class MenuScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
-        //game.batch.draw(playBtn,cam.position.x - playBtn.getWidth()/2, cam.position.y);
-        game.font.draw(game.batch,"JetRaket", 0 ,cam.position.y+100, JetRaket.WIDTH, Align.center, false);
+        game.font.draw(game.batch,"JetRaket", 0 ,cam.position.y+200, JetRaket.WIDTH, Align.center, false);
         settings_sprite.draw(game.batch);
         playBtn_sprite.draw(game.batch);
         game.batch.end();
+
         handleInput();
     }
 
@@ -90,16 +90,13 @@ public class MenuScreen implements Screen {
         {
             Vector3 press=new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             Vector3 temp = cam.unproject(press);
-            //Rectangle textureBounds_settings = playBtn_sprite.getBoundingRectangle();
-            Rectangle textureBounds_settings=new Rectangle(settings_sprite.getX(),settings_sprite.getY(),settings_sprite.getWidth(),settings_sprite.getHeight());
-            Rectangle textureBounds_playBtn=new Rectangle(playBtn_sprite.getX(),playBtn_sprite.getY(),playBtn_sprite.getWidth(),playBtn_sprite.getHeight());
+            Rectangle textureBounds_settings = new Rectangle(settings_sprite.getX(),settings_sprite.getY(),settings_sprite.getWidth(),settings_sprite.getHeight());
+            Rectangle textureBounds_playBtn = new Rectangle(playBtn_sprite.getX(),playBtn_sprite.getY(),playBtn_sprite.getWidth(),playBtn_sprite.getHeight());
             if(textureBounds_settings.contains(temp.x,temp.y))
             {
-                System.out.println("Settings");
                 game.setScreen(new SettingsScreen(game));
             }
             else if(textureBounds_playBtn.contains(press.x, press.y)){
-                System.out.println("Play");
                 game.setScreen(new GameScreen(game));
                 dispose();
             }

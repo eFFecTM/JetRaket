@@ -6,6 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.JetRaket;
 
@@ -13,11 +16,12 @@ import com.mygdx.game.JetRaket;
  * Created by Thomas Janssen & Jan De Laet
  */
 
-public class EndScreen implements Screen{
+public class EndScreen implements Screen {
     private final JetRaket game;
     private OrthographicCamera cam;
     private Texture bg;
-    private Texture backBtn;
+    private Texture playBtn, menuBtn;
+    private Sprite playBtn_sprite, menuBtn_sprite;
     private int score;
     private int highscore;
     private Preferences prefs;
@@ -26,7 +30,16 @@ public class EndScreen implements Screen{
         this.game = game;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, JetRaket.WIDTH, JetRaket.HEIGHT);
-        backBtn = new Texture("playbtn.png");
+
+        playBtn = new Texture("playBtn.png");
+        playBtn_sprite = JetRaket.convertTextureToSprite(playBtn, 1.5f);
+        playBtn_sprite.setPosition(cam.position.x - playBtn_sprite.getWidth()/2*playBtn_sprite.getScaleX(), cam.position.y);
+
+        menuBtn = new Texture("menuBtn.png");
+        menuBtn_sprite = JetRaket.convertTextureToSprite(menuBtn, 0.2f);
+        menuBtn_sprite.setPosition(cam.position.x - menuBtn_sprite.getWidth()/2*menuBtn_sprite.getScaleX(), cam.position.y - 300);
+        menuBtn_sprite.setFlip(false, false);
+
         bg = new Texture("background.jpg");
         prefs = Gdx.app.getPreferences("game_preferences");
         this.score = score;
@@ -45,7 +58,8 @@ public class EndScreen implements Screen{
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(bg, 0, 0);
-        game.batch.draw(backBtn,cam.position.x - backBtn.getWidth()/2, cam.position.y);
+        playBtn_sprite.draw(game.batch);
+        menuBtn_sprite.draw(game.batch);
         checkHighscore();
         String string = "Game over!\n\nScore: " + score + "\n\nHighscore: " + getHighscore();
         game.font.draw(game.batch, string, 0 ,cam.position.y+300, JetRaket.WIDTH, Align.center, false);
@@ -94,13 +108,18 @@ public class EndScreen implements Screen{
 
     @Override
     public void dispose() {
-        backBtn.dispose();
+        playBtn.dispose();
     }
 
     private void handleInput() {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new GameScreen(game));
-            dispose();
+            Vector3 press=new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            Vector3 temp = cam.unproject(press);
+            Rectangle textureBounds_menuBtn = new Rectangle(menuBtn_sprite.getX(), menuBtn_sprite.getY(), menuBtn_sprite.getWidth(), menuBtn_sprite.getHeight());
+            if(textureBounds_menuBtn.contains(press.x, press.y)){
+                game.setScreen(new MenuScreen(game));
+                dispose();
+            }
         }
     }
 }
