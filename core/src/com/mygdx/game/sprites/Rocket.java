@@ -25,17 +25,13 @@ public class Rocket {
     private float scale = 0.1f;
 
     public Rocket() {
-        Texture texture = new Texture("rocket.png");
         textureBullet = new Texture("earth.png"); // load in once
-        int x = (int) (JetRaket.WIDTH/2 - texture.getWidth()/2*scale);
-        int y = (int) (JetRaket.HEIGHT - 2*texture.getHeight()*scale);
+        sprite = JetRaket.convertTextureToSprite(new Texture("rocket.png"),scale);
+        int x = (int) (JetRaket.WIDTH/2 - sprite.getWidth()/2*scale);
+        int y = (int) (JetRaket.HEIGHT - 2*sprite.getHeight()*scale);
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        sprite = new Sprite(texture);
-        sprite.setFlip(false,true);
         sprite.setPosition(x,y);
-        sprite.setOrigin(0,0);
-        sprite.setScale(scale);
         //birdAnimation = new Animation(new TextureRegion(texture), 1, 0.5f);
         shoot = Gdx.audio.newSound(Gdx.files.internal("rocket.wav"));
         colliding = false;

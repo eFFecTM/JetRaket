@@ -21,18 +21,16 @@ public class Meteor {
     private Vector2 posMeteor;
     private Rectangle boundsTop;
     private Random rand;
+    private float scale;
 
     public Meteor(){
         rand = new Random();
         int x = rand.nextInt(JetRaket.WIDTH);
         position = new Vector3(x,100,0);
         velocity = new Vector3(0,0,0);
-        Texture texture = new Texture("meteor.png");
-        sprite = new Sprite(texture);
-        sprite.setOrigin(0,0);
+        sprite = JetRaket.convertTextureToSprite(new Texture("meteor.png"),scale);
         sprite.rotate(-90);
         sprite.setPosition(x,100);
-        sprite.setScale(0.1f);
         //rand = new Random();
         //posMeteor = new Vector2(x, rand.nextInt(JetRaket.HEIGHT));
         //boundsTop = new Rectangle(posMeteor.x, posMeteor.y, meteor.getWidth(), meteor.getHeight());
@@ -56,7 +54,7 @@ public class Meteor {
     public void reset()
     {
         Random random = new Random();
-        position.x = random.nextInt(JetRaket.WIDTH);
+        position.x = random.nextInt((int) (JetRaket.WIDTH-sprite.getWidth()*scale));
         position.y = 0;
     }
 
