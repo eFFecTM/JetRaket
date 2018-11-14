@@ -28,6 +28,7 @@ public class Meteor {
         int x = rand.nextInt(JetRaket.WIDTH);
         position = new Vector3(x,100,0);
         velocity = new Vector3(0,0,0);
+        scale = 0.1f;
         sprite = JetRaket.convertTextureToSprite(new Texture("meteor.png"),scale);
         sprite.rotate(-90);
         sprite.setPosition(x,100);

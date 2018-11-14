@@ -82,7 +82,7 @@ public class Rocket {
     public void shoot(){
         if(bullets.size() < 3) {
             shoot.play(0.5f);
-            Bullet bullet = new Bullet(getPosition().x + sprite.getWidth() * scale / 2, getPosition().y, textureBullet);
+            Bullet bullet = new Bullet(getPosition().x+sprite.getWidth()*scale/2, getPosition().y, textureBullet);
             bullets.add(bullet);
         }
     }

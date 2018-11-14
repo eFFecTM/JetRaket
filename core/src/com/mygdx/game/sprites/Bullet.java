@@ -10,14 +10,14 @@ public class Bullet {
     public Vector3 position;
     private Vector3 velocity;
     public Sprite sprite;
-    private float scalebullet = 0.03f;
+    private float scalebullet;
 
     public Bullet(float x, float y, Texture texture) {
         scalebullet = 0.03f;
         sprite = JetRaket.convertTextureToSprite(texture,scalebullet);
-        sprite.setPosition(x,y);
-        position = new Vector3(x+sprite.getWidth()*scalebullet/2, y-sprite.getHeight()*scalebullet, 0);
+        position = new Vector3(x-sprite.getWidth()*scalebullet/2, y-sprite.getHeight()*scalebullet, 0);
         velocity = new Vector3(0, -200, 0);
+        sprite.setPosition(position.x,position.y);
     }
 
     public void update(float dt) {
