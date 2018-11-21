@@ -69,4 +69,12 @@ public class JetRaket extends Game {
 
 		return sprite;
 	}
+
+	public void toggleMusic(){
+		if(music.isPlaying())
+			music.pause();
+		else{
+			music.play();
+		}
+	}
 }

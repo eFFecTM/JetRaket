@@ -21,7 +21,7 @@ public class Meteor {
     private Vector2 posMeteor;
     private Rectangle boundsTop;
     private Random rand;
-    private float scale;
+    private float scale = 0.1f;
 
     public Meteor(){
         rand = new Random();

@@ -1,9 +1,8 @@
 JETRAKET TO DO
 -------------------------------------------------------------------------------
 * Pixel perfect collision detection
-
+* Inheritance
 * Movable background
-
 * Multiple lives
 
 * Menu screen with settings
@@ -14,7 +13,7 @@ JETRAKET TO DO
 * Menu: swipe left to enter settings, center play game, right to ...
  See: https://github.com/libgdx/libgdx/wiki/Gesture-detection
 
-* Shoot function
+* Power-ups
 
 * Level design:
     - Bigger meteors
