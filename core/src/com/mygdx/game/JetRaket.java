@@ -21,6 +21,7 @@ public class JetRaket extends Game {
 	public static int screenWidth;
 	public static int screenHeight;
 	public static final String TITLE = "JetRaket";
+	private static boolean vibration = false;
 
 	public SpriteBatch batch;
 	private FreeTypeFontGenerator generator;
@@ -76,5 +77,13 @@ public class JetRaket extends Game {
 		else{
 			music.play();
 		}
+	}
+
+	public void toggleVibration(){
+		vibration = !vibration;
+	}
+
+	public boolean getVibration(){
+		return vibration;
 	}
 }

@@ -137,15 +137,17 @@ public class SettingsScreen implements Screen {
 
             if(textureBounds_vibrateOnBtn.contains(temp.x, temp.y) && vibrateOnBtn_sprite.getColor().a == 0.99607843f){
                 System.out.println("Vibration off");
+                game.toggleVibration();
                 vibrateOnBtn_sprite.setAlpha(0f);
                 vibrateOffBtn_sprite.setAlpha(1f);
             }
             else if(textureBounds_vibrateOffBtn.contains(temp.x, temp.y) && vibrateOffBtn_sprite.getColor().a == 0.99607843f){
                 System.out.println("Vibration on");
+                game.toggleVibration();
+                Gdx.input.vibrate(200);
                 vibrateOnBtn_sprite.setAlpha(1f);
                 vibrateOffBtn_sprite.setAlpha(0f);
             }
-
         }
     }
 }
